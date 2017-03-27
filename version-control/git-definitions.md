@@ -15,3 +15,5 @@ A commit is a snapshot of a project. It should be made when any significant chan
 * What is a merge conflict?
 
 A merge conflict occurs when both the base branch and the branch that is being merged have changed since they were initially branched. For example, if a feature branch is created, and the Readme.md file is changed in the feature branch. If, before the feature branch is merged back into master, the Readme.md file is changed in the master branch, there will be a merge conflict.
+
+![github logo](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png)
