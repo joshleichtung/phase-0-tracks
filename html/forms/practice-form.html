@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Practice Form</title>
+  </head>
+  <body>
+    <h1>Food Survey</h1>
+    <form action="success.html" method="POST">
+      <fieldset>
+        <h2>Choose your food preference</h2>
+        <div>
+          <label>Food</label>
+          <select name="food">
+            <option value="pizza">Pizza</option>
+            <option value="burger">Burger</option>
+            <option value='taco"'>Taco</option>
+          </select>
+        </div>
+        <div>
+          <label>Comments</label>
+          <textarea name="comments"></textarea>
+          <div>
+            <label>Subscribe to food newsletter</label>
+            <input type="checkbox" name="subcribe" value="yes">
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <h2>Tell us a little about yourself</h2>
+        <div>
+          <label>Enter your birthday</label>
+          <input type="date" name="dob">
+        </div>
+        <div>
+          <label>Gender</label><br>
+          <input type="radio" name="gender" value="NA" checked>None of your business<br>
+          <input type="radio" name="gender" value="male">Male<br>
+          <input type="radio" name="gender" value="female">Female<br>
+          <input type="radio" name="gender" value="other">Other<br>
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="text" name="email">
+        </div>
+      </fieldset>
+      <button type="submit">Send Food Preference</button>
+    </form>
+  </body>
+</html>
