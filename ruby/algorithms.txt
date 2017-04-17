@@ -1,0 +1,3 @@
+Find elevator control buttons
+- For each button in the button console:
+  - Push the button if the label matches your desired destination floor
