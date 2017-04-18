@@ -40,6 +40,7 @@ num_employees.times do |n|
   puts 'Would you like to enroll in the company’s health insurance?'
   enroll_insurance = gets.chomp
   enroll_insurance = answer_yes?(enroll_insurance)
+ 
 
   vampire_status = nil
   if age_correct?(birth_year, how_old) &&
@@ -63,12 +64,24 @@ num_employees.times do |n|
   end
   vampire_status = 'Results inconclusive' if !vampire_status
 
+  puts 'Name your allergies, one at a time. Type "done" when finished.'
+  allergies = []
+  allergies.push(gets.chomp) while allergies.last != 'done' &&
+    allergies.last != 'sunshine'
+
+  vampire_status = 'Probably a vampire.' if allergies.last == 'sunshine'
+  allergies.pop if allergies.last == 'done'
+
 puts %Q|
 Name: #{name}
 How old?: #{how_old}
 Birth Year: #{birth_year}
 Order Garlic Bread?: #{order_garlicbread}
 Enroll Health Insurance?: #{enroll_insurance}
+Alergies: #{allergies}
 Vampire Status: #{vampire_status}
+
 |
+
+puts "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
 end
