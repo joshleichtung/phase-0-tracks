@@ -7,19 +7,56 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 # printing each item in the array separated by an asterisk
 # ----
 
+zombie_apocalypse_supplies.each_index do |i|
+  print zombie_apocalypse_supplies[i]
+  print "*" if (i + 1) < zombie_apocalypse_supplies.length
+end
+
 # 2. In order to keep yourself organized, sort your zombie_apocalypse_supplies
 # in alphabetical order. Do not use any special built-in methods.
 # ----
+
+def sorter(array)
+  loop do
+    switched = false
+    for i in 0...array.length - 1
+      if array[i].downcase > array[i + 1].downcase
+        array[i], array[i + 1] = array[i + 1], array[i]
+        switched = true
+      end
+    end
+    break if !switched
+  end
+  array
+end
+
+puts "\nSorted zombies: #{sorter(zombie_apocalypse_supplies)}"
 
 # 3. Create a method to see if a particular item (string) is in the
 # zombie_apocalypse_supplies. Do not use any special built-in methods.
 # For instance: are boots in your list of supplies?
 # ----
 
+def in_supplies?(string, supplies)
+  supplies.each do |item|
+    return true if item == string
+  end
+  false
+end
+
+puts "Expect false: #{in_supplies?("not in there", zombie_apocalypse_supplies)}"
+puts "Expect true: #{in_supplies?("rations", zombie_apocalypse_supplies)}"
+
+
 # 4. You can't carry too many things, you've only got room in your pack for 5.
 # Remove items in your zombie_apocalypse_supplies in any way you'd like,
 # leaving only 5. Do not use any special built-in methods.
 # ----
+reduced_zombie_apocalypse_supplies = Array.new(zombie_apocalypse_supplies)
+reduced_zombie_apocalypse_supplies.pop while reduced_zombie_apocalypse_supplies.length > 5
+
+puts "Number of zombie_apocalypse_supplies: #{zombie_apocalypse_supplies.length}"
+puts "Number of reduced_zombie_apocalypse_supplies: #{reduced_zombie_apocalypse_supplies.length}"
 
 # 5. You found another survivor! This means you can combine your supplies.
 # Create a new combined supplies list out of your zombie_apocalypse_supplies
@@ -29,6 +66,11 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 other_survivor_supplies = [ "warm clothes", "rations", "compass", "camp stove",
                             "solar battery", "flashlight"]
 # ----
+
+combined_supplies = zombie_apocalypse_supplies | other_survivor_supplies
+p "zombie supplies: #{zombie_apocalypse_supplies}"
+p "other_survivor_supplies: #{other_survivor_supplies}"
+p "combined_supplies (should have only one compass): #{combined_supplies}"
 
 # Hash Drills
 
@@ -45,6 +87,7 @@ extinct_animals = {
 # 1. Iterate through extinct_animals hash, printing each key/value pair
 # with a dash in between the key and value, and an asterisk between each pair.
 # ----
+
 
 # 2. Keep only animals in extinct_animals if they were extinct before
 # the year 2000. Do not use any special built-in methods.
