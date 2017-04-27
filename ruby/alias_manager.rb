@@ -35,19 +35,28 @@ def create_fake_name(string)
   result
 end
 
-#####Driver Code######
-
-p create_fake_name("josh leichtung")
-p create_fake_name("Josh Leichtung")
-p create_fake_name("Michael J. Fox")
-p create_fake_name("Sinead O'Connor")
-p "Should be Vussit Gimodoe: #{create_fake_name("Felicia Torres")}"
+# #####Driver Code######
+#
+# p create_fake_name("josh leichtung")
+# p create_fake_name("Josh Leichtung")
+# p create_fake_name("Michael J. Fox")
+# p create_fake_name("Sinead O'Connor")
+# p "Should be Vussit Gimodoe: #{create_fake_name("Felicia Torres")}"
 
 ####Release 1######
+
+spy_name_list = []
 
 loop do
   puts "Input a name to be create a spy from or enter \"quit\" to exit"
   string = gets.chomp
   break if string.downcase == 'quit'
+  spy_name_list.push({name: string, spy_name: create_fake_name(string)})
   puts "Your spy name is: #{create_fake_name(string)}" if !string.empty?
 end
+
+if (!spy_name_list.empty?)
+  puts "******List of Names and Aliases******"
+  spy_name_list.each {|item| puts "Real Name: #{item[:name]}  |  Spy Name: #{item[:spy_name]}"}
+end
+
