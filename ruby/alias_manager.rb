@@ -42,3 +42,12 @@ p create_fake_name("Josh Leichtung")
 p create_fake_name("Michael J. Fox")
 p create_fake_name("Sinead O'Connor")
 p "Should be Vussit Gimodoe: #{create_fake_name("Felicia Torres")}"
+
+####Release 1######
+
+loop do
+  puts "Input a name to be create a spy from or enter \"quit\" to exit"
+  string = gets.chomp
+  break if string.downcase == 'quit'
+  puts "Your spy name is: #{create_fake_name(string)}" if !string.empty?
+end
