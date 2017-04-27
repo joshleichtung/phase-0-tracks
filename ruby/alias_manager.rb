@@ -12,6 +12,8 @@ def increment_letter_by_type(char)
   vowels = ['a', 'e', 'i', 'o', 'u']
   consonants = [*'a'..'z'] - vowels
   is_capital = ('A'..'Z').include?(char)
+  char = char.downcase
+
     if vowels.include?(char)
       char = vowels[(vowels.index(char) + 1) % vowels.length]
     elsif consonants.include?(char)
@@ -22,20 +24,13 @@ def increment_letter_by_type(char)
 end
 
 def create_fake_name(string)
-  vowels = ['a', 'e', 'i', 'o', 'u']
-  consonants = [*'a'..'z'] - vowels
   result = ''
   string = string.split(' ')
   string[0], string[-1] = string[-1], string[0]
   string = string.join(' ')
+
   string.each_char do |char|
-    if vowels.include?(char)
-      result += vowels[(vowels.index(char) + 1) % vowels.length]
-    elsif consonants.include?(char)
-      result += consonants[(consonants.index(char) + 1) % consonants.length]
-    else
-      result += char
-    end
+    result += increment_letter_by_type(char)
   end
   result
 end
@@ -43,3 +38,7 @@ end
 #####Driver Code######
 
 p create_fake_name("josh leichtung")
+p create_fake_name("Josh Leichtung")
+p create_fake_name("Michael J. Fox")
+p create_fake_name("Sinead O'Connor")
+p "Should be Vussit Gimodoe: #{create_fake_name("Felicia Torres")}"
