@@ -29,9 +29,8 @@
 # output: list/hash
 
 def create_list(items = '')
-  items = items.split(' ')
   list = {}
-  items.each {|item| list[item.to_sym] = 1}
+  items.split(' ').each {|item| list[item.to_sym] = 1}
   print_list(list)
   list
 end
