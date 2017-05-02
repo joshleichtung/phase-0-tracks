@@ -3,10 +3,9 @@ class Santa
     puts "Initializing Santa instance..."
     @gender = gender
     @ethnicity = ethnicity
+    @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
+    @age = 0
   end
-
-  @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
-  @age = 0
 
   def speak
     puts "HO,ho, ho! Haaaappy holidays!"
@@ -14,6 +13,28 @@ class Santa
 
   def eat_milk_and_cookies(cookie_type)
     puts "That was a good #{cookie_type}"
+  end
+
+  def celebrate_birthday
+    @age += 1
+  end
+
+  def get_mad_at(reindeer)
+    puts "I don't even know #{reindeer}, but they are at the bottom of my list!" unless
+    @reindeer_ranking.index(reindeer)
+    @reindeer_ranking.push(@reindeer_ranking.delete(reindeer) || reindeer)
+  end
+
+  def gender=(new_gender)
+    @gender = new_gender
+  end
+
+  def age
+    @age
+  end
+
+  def ethnicity
+    @ethnicity
   end
 end
 
@@ -32,3 +53,13 @@ santas = []
 end
 
 santas.each {|santa| p santa}
+
+santa.get_mad_at("Belinda")
+santa.get_mad_at("Dasher")
+santa.gender = "new gender"
+santa.celebrate_birthday
+puts "\n\nNew santa should have @gender = 'new gender', and @reindeer_ranking should
+ have Dasher last and Belinda 2nd to last"
+p santa
+puts "Santa's age (should be 1): #{santa.age}"
+puts "Santa's ethnicity (should be 'N/A'): #{santa.ethnicity}"
