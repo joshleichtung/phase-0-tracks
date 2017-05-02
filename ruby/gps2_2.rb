@@ -28,13 +28,12 @@
 # a a line. Print with string interpolation
 # output: list/hash
 
-def create_list(list)
-  list = list.split(' ')
-  result = {}
-  list.each do |item|
-    result[item.to_sym] = 1
-  end
-  result
+def create_list(items = '')
+  items = items.split(' ')
+  list = {}
+  items.each {|item| list[item.to_sym] = 1}
+  print_list(list)
+  list
 end
 
 def add_item_to_list(list, item_name, quantity = 1)
@@ -57,22 +56,34 @@ def update_list(list, item_name, quantity = 1)
 end
 
 def print_list(list)
-  list.each do |key, value|
-    puts "#{key}: #{value}"
-  end
-
+  list.each {|key, value| puts "#{key}: #{value}"}
 end
 
 
 # Driver Code
-list = create_list("apples oranges bananas")
-puts "Expect apples: 1, oranges: 1, bananas: 1"
+# list = create_list("apples oranges bananas")
+# puts "Expect apples: 1, oranges: 1, bananas: 1"
+# print_list(list)
+# add_item_to_list(list, "apples", 3)
+# add_item_to_list(list, "celery")
+# puts "\n\nshould have 4 apples and 1 celery"
+# print_list(list)
+# remove_list_item(list, "oranges")
+# update_list(list, "celery", 2)
+# puts "\n\nshoud have no oranges, and celery: 2"
+# print_list(list)
+
+list = create_list
+add_item_to_list(list, "Lemonade", 2)
+add_item_to_list(list, "Tomatoes", 3)
+add_item_to_list(list, "Onions", 1)
+add_item_to_list(list, "Ice Cream", 4)
 print_list(list)
-add_item_to_list(list, "apples", 3)
-add_item_to_list(list, "celery")
-puts "\n\nshould have 4 apples and 1 celery"
+
+puts "\nRemoving Lemonade..."
+remove_list_item(list, "Lemonade")
 print_list(list)
-remove_list_item(list, "oranges")
-update_list(list, "celery", 2)
-puts "\n\nshoud have no oranges, and celery: 2"
+
+puts "\nUpdating Ice Cream to 1"
+update_list(list, "Ice Cream", 1)
 print_list(list)
