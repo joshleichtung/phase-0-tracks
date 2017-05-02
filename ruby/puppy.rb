@@ -99,3 +99,10 @@ p "Play EMaj: #{elec.play_chord("EMaj")}"
 p "Play F-sharp: #{elec.play_note("F-sharp")}"
 elec.feedback
 elec.distort
+
+guitars = []
+50.times {guitars.push(Guitar.new)}
+guitars.each do |guitar|
+  p "Play A#Maj: #{guit.play_chord("A#Maj")}"
+  p "Play B-flat: #{guit.play_note("B-flat")}"
+end
