@@ -1,12 +1,28 @@
 module Shout
-  def self.yell_angrily(words)
+  def yell_angrily(words)
     words + "!!!!" + " :("
   end
-  def self.yelling_happily(words)
+  def yelling_happily(words)
     words.upcase + "!!!!" + " :D"
   end
 end
 
+class Goat
+  include Shout
+end
+
+class Toddler
+  include Shout
+end
+
 ###Driver Code ###
-puts Shout.yell_angrily("hodor")
-puts Shout.yelling_happily("hodor")
+puts "***Goat Shouts***"
+billy = Goat.new
+puts billy.yell_angrily("gwaaaaah")
+puts billy.yelling_happily("gwaaaaah")
+
+puts "\n***Toddler Shouts***"
+annie = Toddler.new
+puts annie.yell_angrily("I don't want to go to bed")
+puts annie.yelling_happily("ice cream")
+
