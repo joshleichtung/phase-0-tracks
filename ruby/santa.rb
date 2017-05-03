@@ -1,10 +1,10 @@
 class Santa
-  def initialize(gender = "N/A", ethnicity = "N/A")
+  def initialize(gender = "N/A", ethnicity = "N/A", age = 0)
     puts "Initializing Santa instance..."
     @gender = gender
     @ethnicity = ethnicity
     @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
-    @age = 0
+    @age = age
   end
 
   attr_accessor :gender
@@ -59,13 +59,11 @@ puts "Santa's ethnicity (should be 'N/A'): #{santa.ethnicity}"
 start_time = Time.now
 santas = []
 1000000.times do |n|
-  santa = Santa.new(facebook_genders.sample, example_ethnicities.sample)
-  rand(140).times {santa.celebrate_birthday}
+  santa = Santa.new(facebook_genders.sample, example_ethnicities.sample, rand(140))
   puts %Q|Santa \##{n}
   Age: #{santa.age}
   Ethnicity: #{santa.ethnicity}
   Gender: #{santa.gender}
-  Reindeer Ranking: #{santa.reindeer_ranking}
   |
 end
 
