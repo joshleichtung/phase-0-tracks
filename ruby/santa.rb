@@ -8,7 +8,7 @@ class Santa
   end
 
   attr_accessor :gender
-  attr_reader :age, :ethnicity
+  attr_reader :age, :ethnicity, :reindeer_ranking
 
   def speak
     puts "HO,ho, ho! Haaaappy holidays!"
@@ -54,3 +54,19 @@ puts "\n\nNew santa should have @gender = 'new gender', and @reindeer_ranking sh
 p santa
 puts "Santa's age (should be 1): #{santa.age}"
 puts "Santa's ethnicity (should be 'N/A'): #{santa.ethnicity}"
+
+# Release 4
+start_time = Time.now
+santas = []
+1000000.times do |n|
+  santa = Santa.new(facebook_genders.sample, example_ethnicities.sample)
+  rand(140).times {santa.celebrate_birthday}
+  puts %Q|Santa \##{n}
+  Age: #{santa.age}
+  Ethnicity: #{santa.ethnicity}
+  Gender: #{santa.gender}
+  Reindeer Ranking: #{santa.reindeer_ranking}
+  |
+end
+
+p "That took #{Time.now - start_time} seconds!"
