@@ -7,6 +7,9 @@ class Santa
     @age = 0
   end
 
+  attr_accessor :gender
+  attr_reader :age, :ethnicity
+
   def speak
     puts "HO,ho, ho! Haaaappy holidays!"
   end
@@ -24,18 +27,6 @@ class Santa
     @reindeer_ranking.index(reindeer)
     @reindeer_ranking.push(@reindeer_ranking.delete(reindeer) || reindeer)
   end
-
-  def gender=(new_gender)
-    @gender = new_gender
-  end
-
-  def age
-    @age
-  end
-
-  def ethnicity
-    @ethnicity
-  end
 end
 
 #####Driver Code#####
@@ -49,7 +40,7 @@ example_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer n
 
 santas = []
 20.times do
-  santas.push Santa.new(facebook_genders[rand(facebook_genders.length)], example_ethnicities[rand(example_ethnicities.length)])
+  santas.push Santa.new(facebook_genders.sample, example_ethnicities.sample)
 end
 
 santas.each {|santa| p santa}
