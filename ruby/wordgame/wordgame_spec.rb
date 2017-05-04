@@ -15,8 +15,10 @@ require_relative 'wordgame'
 
 describe WordGame do
   let(:game) { WordGame.new }
+
   it "creates a new game" do
     expect(game.new_game("test")).to eq "----"
     expect(game.new_game("antidisestablishmentarianism")).to eq "----------------------------"
   end
+
 end
