@@ -21,4 +21,20 @@ describe WordGame do
     expect(game.new_game("antidisestablishmentarianism")).to eq "----------------------------"
   end
 
+  it "accepts a char guess and returns the game status" do
+    game.new_game("test")
+    expect(game.guess("z")).to eq "----"
+    expect(game.guess("t")).to eq "t--t"
+  end
+
+  it "tracks how many guesses have been made" do
+    game.new_game("abcd")
+    guesses = ('a'..'d').to_a
+    4.times { game.guess(guesses.pop) }
+    expect(game.guess_count).to eq 4
+    game.guess('z')
+    expect(game.guess_count).to eq 5
+    game.guess('z')
+    expect(game.guess_count).to eq 5
+  end
 end
