@@ -37,4 +37,11 @@ describe WordGame do
     game.guess('z')
     expect(game.guess_count).to eq 5
   end
+
+  it "knows when the word is solved" do
+    game.new_game("a")
+    expect(game.solved?).to be false
+    game.guess("a")
+    expect(game.solved?).to be true
+  end
 end
