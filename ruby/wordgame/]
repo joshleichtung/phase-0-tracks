@@ -43,13 +43,11 @@ class WordGame
       8
     when word_length <= 10
       6
-    else
-      5
     end
   end
 
   def guesses_left
-    wrong_guess_limit - wrong_guesses
+    wrong_guess_limit - (wrong_guesses || 0)
   end
 
   def wrong_guesses
@@ -100,6 +98,6 @@ until game.solved? || game.guesses_left < 1
   puts %Q|Game Status: #{game_state[:status]}
   Wrong Guesses Left: #{game_state[:guesses_left]}
   |
-  puts "\nYou lost, so so badly!" if game_state[:guesses_left] < 1
+  puts "\nYou lost, so so badly!" if game_state[:guess_left] < 1
   puts "\nYou Won! Huzzah!" if game_state[:solved?]
 end
