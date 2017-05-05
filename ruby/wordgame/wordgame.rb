@@ -1,5 +1,5 @@
 class WordGame
-  def initialize(guesses = [], string = nil)
+  def initialize(string = nil)
     new_game(string)
   end
 
@@ -19,7 +19,7 @@ class WordGame
     {status: correct_guesses,
      guesses: guess_count,
      solved?: solved?,
-     guesses_left: wrong_guess_limit - guess_count}
+     guesses_left: guesses_left}
   end
 
   def correct_guesses
@@ -38,14 +38,22 @@ class WordGame
     word_length = @string.delete(' ').length
     case
     when word_length <= 2
-      3
-    when word_length <= 4
       6
-    when word_length <= 10
+    when word_length <= 4
       8
+    when word_length <= 10
+      6
     else
-      18
+      5
     end
+  end
+
+  def guesses_left
+    wrong_guess_limit - wrong_guesses
+  end
+
+  def wrong_guesses
+    @guesses.select {|letter| !@string.include?(letter)}.count
   end
 
   def solved?
@@ -62,21 +70,36 @@ class WordGame
 end
 
 
-# #####Driver Code####
-#
-# puts "Welcome to Word Game!!!!!"
-# puts "Guessing player, close your eyes and don't look while the other player enters a word for you to guess."
-# game = WordGame.new(gets.chomp)
-#
-# p game.correct_guesses
-# until game.word_valid?
-#   puts "Please enter a valid word to play with. Still no peaking guessing player"
-#   game.new_game(gets.chomp)
-# end
-# p game.guess_count
-# p game.guess_limit
-# unless game.solved? || game.guess_count >= game.guess_limit
-#   puts "Guessing player - please enter a character or enter 'give up' to quit"
-#   guess = gets.chomp
-#   # break if guess.downcase == 'give up'
-# end
+#####Driver Code####
+test = WordGame.new('test')
+p "Guesses left: #{test.guesses_left}"
+puts "Welcome to Word Game!!!!!"
+puts "Guessing player, close your eyes and don't look while the other player enters a word for you to guess."
+game = WordGame.new(gets.chomp)
+
+until game.word_valid?
+  puts "Please enter a valid word to play with. Still no peaking guessing player"
+  game.new_game(gets.chomp)
+end
+
+until game.solved? || game.guesses_left < 1
+  puts "Guessing player - please enter a character or enter 'give up' to quit"
+  guess = gets.chomp
+  until guess.downcase == 'give up' ||
+      (guess.class == String && guess.length == 1 && guess =~ /[A-Za-z]/)
+    puts "Please input a valid single alphabetical character"
+    guess = gets.chomp
+  end
+
+  if guess.downcase == 'give up'
+    puts "\nCouldn't take it, huh? Bye."
+    break
+  end
+
+  game_state = game.guess(guess)
+  puts %Q|Game Status: #{game_state[:status]}
+  Wrong Guesses Left: #{game_state[:guesses_left]}
+  |
+  puts "\nYou lost, so so badly!" if game_state[:guesses_left] < 1
+  puts "\nYou Won! Huzzah!" if game_state[:solved?]
+end
