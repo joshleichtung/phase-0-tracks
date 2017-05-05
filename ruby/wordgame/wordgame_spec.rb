@@ -16,26 +16,28 @@ require_relative 'wordgame'
 describe WordGame do
   let(:game) { WordGame.new }
 
+  before :each do
+    game.new_game("test")
+  end
+
   it "creates a new game" do
     expect(game.new_game("test")).to eq "----"
     expect(game.new_game("antidisestablishmentarianism")).to eq "----------------------------"
   end
 
   it "accepts a char guess and returns the game status" do
-    game.new_game("test")
-    expect(game.guess("z")).to eq "----"
-    expect(game.guess("t")).to eq "t--t"
+    expect(game.guess("z")[:status]).to eq "----"
+    expect(game.guess("t")[:status]).to eq "t--t"
   end
 
   it "tracks how many guesses have been made" do
-    game.new_game("abcd")
-    guesses = ('a'..'d').to_a
-    4.times { game.guess(guesses.pop) }
-    expect(game.guess_count).to eq 4
+    guesses = "abcde"
+    guesses.each_char{|char|  game.guess(char) }
+    expect(game.guess_count).to eq guesses.length
     game.guess('z')
-    expect(game.guess_count).to eq 5
+    expect(game.guess_count).to eq guesses.length + 1
     game.guess('z')
-    expect(game.guess_count).to eq 5
+    expect(game.guess_count).to eq guesses.length + 1
   end
 
   it "knows when the word is solved" do
@@ -43,5 +45,14 @@ describe WordGame do
     expect(game.solved?).to be false
     game.guess("a")
     expect(game.solved?).to be true
+  end
+
+  it "handles multiword games" do
+    solution = "test game"
+    game.new_game(solution)
+    expect(game.guess("z")[:status]).to eq "---- ----"
+    "test game".each_char {|char| game.guess(char) }
+    expect(game.solved?).to be true
+    expect(game.guess_count).to eq solution.delete(" ").length
   end
 end
