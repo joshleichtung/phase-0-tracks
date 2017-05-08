@@ -44,3 +44,51 @@ obj1 = {one: 1, two: "too", three: "a crowd"};
 obj2 = {one: 1, too: 2, three: 4};
 obj3 = {dogs: "cool", cats: "lame", hamsters: "meh"};
 
+/*
+ * Generate random string
+ * Parameters: integer for length of string to generate
+ * Return: array of Random strings
+ * create variable empty string result
+ * FOR loop n times
+ *  random integer from 97 to 122 (A-z)
+ *  concat FROMCHARCODE of rand into string
+ * RETURN result
+*/
+
+function random_string(n){
+  var result = [];
+
+  for(var i = 0; i < n; i++){
+    var word_length = random_int(1, 10);
+    var string = "";
+    for(var j = 0; j < word_length; j++){
+      string += String.fromCharCode(random_int(97, 122));
+    }
+    result.push(string);
+  }
+  return result;
+}
+
+// Credit of random int from:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function random_int(min, max){
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+//driver code
+// for(var i = 0; i < 20; i++){
+//   console.log("Random int: " + random_int(1, 10));
+// }
+// console.log(random_string(100));
+
+
+//Release 2 Driver Code
+
+for(var i = 0; i < 10; i++){
+  console.log("Random Strings " + (i + 1));
+  rand_strings = random_string(10);
+  console.log(rand_strings);
+  console.log("Longest string: " + longest_phrase(rand_strings));
+}
