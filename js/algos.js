@@ -17,12 +17,6 @@ function longest_phrase(ary){
   return result;
 }
 
-var words = ['one', 'two', 'three'];
-console.log("Should be three: " + longest_phrase(words));
-var phrases = ["short", "a medium phrase", "this is a pretty long phrase", "this is a really super long phrase, and it should be the longest"];
-console.log(longest_phrase(phrases));
-
-
 /* shared pair function
  * Parameters: 2 objects
  * got object keys of first object.
@@ -30,9 +24,8 @@ console.log(longest_phrase(phrases));
  *
 */
 
-function matching_key(obj1, obj2){
+function matching_property(obj1, obj2){
   for(key in obj1){
-    console.log("KEY: " + key);
     if (obj1.hasOwnProperty(key) && obj1[key] === obj2[key]){
       return true;
     }
@@ -40,9 +33,6 @@ function matching_key(obj1, obj2){
   return false
 }
 
-obj1 = {one: 1, two: "too", three: "a crowd"};
-obj2 = {one: 1, too: 2, three: 4};
-obj3 = {dogs: "cool", cats: "lame", hamsters: "meh"};
 
 /*
  * Generate random string
@@ -71,13 +61,29 @@ function random_string(n){
 
 // Credit of random int from:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+// First two lines are only necessary if non-integers given
 function random_int(min, max){
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//driver code
+
+// longest_phrase driver code
+var words = ['one', 'two', 'three'];
+console.log("Should be three: " + longest_phrase(words));
+var phrases = ["short", "a medium phrase", "this is a pretty long phrase", "this is a really super long phrase, and it should be the longest"];
+console.log(longest_phrase(phrases));
+
+// matching_property driver code
+obj1 = {one: 1, two: "too", three: "a crowd"};
+obj2 = {one: 1, too: 2, three: 4};
+obj3 = {dogs: "cool", cats: "lame", hamsters: "meh"};
+
+console.log("Should be true: " + matching_property(obj1, obj2));
+console.log("Should be false: " + matching_property(obj1, obj3));
+
+// random_string and random_phrase driver code
 // for(var i = 0; i < 20; i++){
 //   console.log("Random int: " + random_int(1, 10));
 // }
@@ -87,7 +93,7 @@ function random_int(min, max){
 //Release 2 Driver Code
 
 for(var i = 0; i < 10; i++){
-  console.log("Random Strings " + (i + 1));
+  console.log("Random String #" + (i + 1));
   rand_strings = random_string(10);
   console.log(rand_strings);
   console.log("Longest string: " + longest_phrase(rand_strings));
