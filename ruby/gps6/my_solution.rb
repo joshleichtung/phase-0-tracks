@@ -85,3 +85,19 @@ end
 # Reflection Section
 
 # require_relative imports code from another file, making accessible from the calling file. It's different from require in that it looks for the file in the same directory as the calling file, rather than looking through the ruby path, or needing an absolute file path.
+
+
+# What are the differences between the two different hash syntaxes shown in the state_data file?
+# Version uses strings as keys and uses => to set the value of the key. The other one uses a symbol, and is syntactic sugar for :key => value.
+
+# What does require_relative do? How is it different from require?
+# Require relative loads the code from a file. require_relative looks in the  directory of the file making the call for the file, where as require will look in the ruby path for installed gems and modules first, then will look in the system direcotry hierarchy.
+
+# What are some ways to iterate through a hash?
+# You can iterate through a hash using Hash#each, or using a for...in loop. You could also get the keys of the hash using Hash#keys, then iterate over that array using a while loop or with each. The first two examples seem much better though.
+
+# When refactoring virus_effects, what stood out to you about the variables, if anything?
+# Passing instance variables to an instance method is redundant.
+
+# What concept did you most solidify in this challenge?
+# The difference between global variables and constants.
