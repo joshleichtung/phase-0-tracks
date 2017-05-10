@@ -9,57 +9,52 @@
 require_relative 'state_data'
 
 class VirusPredictor
-
+# initialize instance variables
   def initialize(state_of_origin, population_density, population)
     @state = state_of_origin
     @population = population
     @population_density = population_density
   end
 
+# Calls predicted_deaths and speed_of_spread with the instance variables as parameters
   def virus_effects
-    predicted_deaths(@population_density, @population, @state)
-    speed_of_spread(@population_density, @state)
+        "#{@state} will lose #{predicted_deaths} people in this outbreak and will spread across the state in #{speed_of_spread} months.\n\n"
   end
 
   private
 
-  def predicted_deaths(population_density, population, state)
-    # predicted deaths is solely based on population density
-    if @population_density >= 200
-      number_of_deaths = (@population * 0.4).floor
-    elsif @population_density >= 150
-      number_of_deaths = (@population * 0.3).floor
-    elsif @population_density >= 100
-      number_of_deaths = (@population * 0.2).floor
-    elsif @population_density >= 50
-      number_of_deaths = (@population * 0.1).floor
+# generates a number of deaths, which is the population mulitplied by a factor/rate that depends on population_density. Number of deaths increase with population density.
+  def predicted_deaths
+    case
+    when @population_density >= 200
+      (@population * 0.4).floor
+    when@population_density >= 150
+      (@population * 0.3).floor
+    when @population_density >= 100
+      (@population * 0.2).floor
+    when @population_density >= 50
+      (@population * 0.1).floor
     else
-      number_of_deaths = (@population * 0.05).floor
+      (@population * 0.05).floor
     end
-
-    print "#{@state} will lose #{number_of_deaths} people in this outbreak"
-
   end
 
-  def speed_of_spread(population_density, state) #in months
+# calculates speed of virus spread based on population_density. The higher the population density, the less time it will take the virus spread.
+  def speed_of_spread #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
-    speed = 0.0
-
-    if @population_density >= 200
-      speed += 0.5
-    elsif @population_density >= 150
-      speed += 1
-    elsif @population_density >= 100
-      speed += 1.5
-    elsif @population_density >= 50
-      speed += 2
+    case
+    when @population_density >= 200
+      0.5
+    when @population_density >= 150
+      1
+    when @population_density >= 100
+      1.5
+    when @population_density >= 50
+      2
     else
-      speed += 2.5
+      2.5
     end
-
-    puts " and will spread across the state in #{speed} months.\n\n"
-
   end
 
 end
@@ -70,18 +65,39 @@ end
  # initialize VirusPredictor for each state
 
 
-alabama = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population])
-alabama.virus_effects
+# alabama = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population])
+# alabama.virus_effects
 
-jersey = VirusPredictor.new("New Jersey", STATE_DATA["New Jersey"][:population_density], STATE_DATA["New Jersey"][:population])
-jersey.virus_effects
+# jersey = VirusPredictor.new("New Jersey", STATE_DATA["New Jersey"][:population_density], STATE_DATA["New Jersey"][:population])
+# jersey.virus_effects
 
-california = VirusPredictor.new("California", STATE_DATA["California"][:population_density], STATE_DATA["California"][:population])
-california.virus_effects
+# california = VirusPredictor.new("California", STATE_DATA["California"][:population_density], STATE_DATA["California"][:population])
+# california.virus_effects
 
-alaska = VirusPredictor.new("Alaska", STATE_DATA["Alaska"][:population_density], STATE_DATA["Alaska"][:population])
-alaska.virus_effects
+# alaska = VirusPredictor.new("Alaska", STATE_DATA["Alaska"][:population_density], STATE_DATA["Alaska"][:population])
+# alaska.virus_effects
 
+STATE_DATA.each do |state, data|
+  puts VirusPredictor.new(state, data[:population_density], data[:population]).virus_effects
+end
 
 #=======================================================================
 # Reflection Section
+
+# require_relative imports code from another file, making accessible from the calling file. It's different from require in that it looks for the file in the same directory as the calling file, rather than looking through the ruby path, or needing an absolute file path.
+
+
+# What are the differences between the two different hash syntaxes shown in the state_data file?
+# Version uses strings as keys and uses => to set the value of the key. The other one uses a symbol, and is syntactic sugar for :key => value.
+
+# What does require_relative do? How is it different from require?
+# Require relative loads the code from a file. require_relative looks in the  directory of the file making the call for the file, where as require will look in the ruby path for installed gems and modules first, then will look in the system direcotry hierarchy.
+
+# What are some ways to iterate through a hash?
+# You can iterate through a hash using Hash#each, or using a for...in loop. You could also get the keys of the hash using Hash#keys, then iterate over that array using a while loop or with each. The first two examples seem much better though.
+
+# When refactoring virus_effects, what stood out to you about the variables, if anything?
+# Passing instance variables to an instance method is redundant.
+
+# What concept did you most solidify in this challenge?
+# The difference between global variables and constants.
