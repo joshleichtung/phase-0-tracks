@@ -7,3 +7,7 @@ function changeTextColor(event){
 }
 
 header.addEventListener("click", changeTextColor);
+
+document.getElementById("button").addEventListener("click", function(){
+  console.log("You pushed the button");
+});
