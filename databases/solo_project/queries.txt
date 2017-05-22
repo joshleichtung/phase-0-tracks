@@ -1,0 +1,92 @@
+***Create Tables***
+sqlite> CREATE TABLE girl_scout_troops (
+   ...> id INTEGER PRIMARY KEY,
+   ...> troop_name VARCHAR(255)
+   ...> );
+sqlite> INSERT INTO girl_scout_troops (troop_name) VALUES ("Oakland Orbits");
+sqlite> INSERT INTO girl_scout_troops (troop_name) VALUES ("San Francisco Stars");
+sqlite> INSERT INTO girl_scout_troops (troop_name) VALUES ("Alameda Aligators");
+sqlite> INSERT INTO girl_scout_troops (troop_name) VALUES ("Emmeryville Energizers");
+sqlite> CREATE TABLE scouts (
+   ...> id INTEGER PRIMARY KEY,
+   ...> name VARCHAR(255),
+   ...> dob DATE,
+   ...> troop_id INTEGER,
+   ...> FOREIGN KEY(troop_id) REFERENCES girl_scout_troops(id)
+   ...> );
+
+***Insert Data***
+sqlite> INSERT INTO scouts (name, dob, troop_id) VALUES ("Gwen Mok", "2005-04-29", 2);
+sqlite> INSERT INTO scouts (name, dob, troop_id) VALUES ("Robin Sharp", "2005-03-19", 2);
+sqlite> INSERT INTO scouts (name, dob, troop_id) VALUES ("Stephanie Price", "2005-02-09", 2);
+sqlite> INSERT INTO scouts (name, dob, troop_id) VALUES ("Jesse Ma", "2004-11-09", 1);
+sqlite> INSERT INTO scouts (name, dob, troop_id) VALUES ("Shanna Jeffries", "2006-01-33", 1);
+sqlite> INSERT INTO scouts (name, dob, troop_id) VALUES ("Ella Fitzgerald", "2006-03-28", 1);
+sqlite> INSERT INTO scouts (name, dob, troop_id) VALUES ("Billie Holiday", "2004-10-18", 3);
+sqlite> INSERT INTO scouts (name, dob, troop_id) VALUES ("Bessie Smith", "2004-11-11", 3);
+sqlite> INSERT INTO scouts (name, dob, troop_id) VALUES ("Edna Lancaster", "2002-06-07", 4);
+sqlite> SELECT * from scouts;
+
+***Release 2 Question 1***
+1|Gwen Mok|2005-04-29|2
+2|Robin Sharp|2005-03-19|2
+3|Stephanie Price|2005-02-09|2
+4|Jesse Ma|2004-11-09|1
+5|Shanna Jeffries|2006-01-33|1
+6|Ella Fitzgerald|2006-03-28|1
+7|Billie Holiday|2004-10-18|3
+8|Bessie Smith|2004-11-11|3
+9|Edna Lancaster|2002-06-07|4
+
+***Release 2 Question 2***
+sqlite> UPDATE scouts SET dob="2006-01-31" WHERE name="Shanna Jeffries";
+sqlite> SELECT * from scouts;
+1|Gwen Mok|2005-04-29|2
+2|Robin Sharp|2005-03-19|2
+3|Stephanie Price|2005-02-09|2
+4|Jesse Ma|2004-11-09|1
+5|Shanna Jeffries|2006-01-31|1
+6|Ella Fitzgerald|2006-03-28|1
+7|Billie Holiday|2004-10-18|3
+8|Bessie Smith|2004-11-11|3
+9|Edna Lancaster|2002-06-07|4
+
+***Release 2 Question 3***
+sqlite> SELECT * from scouts JOIN girl_scout_troops
+   ...> ON scouts.troop_id = girl_scout_troops.id;
+1|Gwen Mok|2005-04-29|2|2|San Francisco Stars
+2|Robin Sharp|2005-03-19|2|2|San Francisco Stars
+3|Stephanie Price|2005-02-09|2|2|San Francisco Stars
+4|Jesse Ma|2004-11-09|1|1|Oakland Orbits
+5|Shanna Jeffries|2006-01-31|1|1|Oakland Orbits
+6|Ella Fitzgerald|2006-03-28|1|1|Oakland Orbits
+7|Billie Holiday|2004-10-18|3|3|Alameda Aligators
+8|Bessie Smith|2004-11-11|3|3|Alameda Aligators
+9|Edna Lancaster|2002-06-07|4|4|Emmeryville Energizers
+
+***Release 2 Question 4***
+sqlite> SELECT scouts.name, scouts.dob, girl_scout_troops.troop_name FROM scouts JOIN girl_scout_troops
+   ...> ON scouts.troop_id = girl_scout_troops.id;
+Gwen Mok|2005-04-29|San Francisco Stars
+Robin Sharp|2005-03-19|San Francisco Stars
+Stephanie Price|2005-02-09|San Francisco Stars
+Jesse Ma|2004-11-09|Oakland Orbits
+Shanna Jeffries|2006-01-33|Oakland Orbits
+Ella Fitzgerald|2006-03-28|Oakland Orbits
+Billie Holiday|2004-10-18|Alameda Aligators
+Bessie Smith|2004-11-11|Alameda Aligators
+Edna Lancaster|2002-06-07|Emmeryville Energizers
+sqlite> DELETE FROM scouts WHERE name="Bessie Smith";
+
+***Release 2 Question 5***
+sqlite> SELECT scouts.name, scouts.id, girl_scout_troops.troop_name
+   ...> FROM scouts JOIN girl_scout_troops
+   ...> ON scouts.troop_id = girl_scout_troops.id;
+Gwen Mok|1|San Francisco Stars
+Robin Sharp|2|San Francisco Stars
+Stephanie Price|3|San Francisco Stars
+Jesse Ma|4|Oakland Orbits
+Shanna Jeffries|5|Oakland Orbits
+Ella Fitzgerald|6|Oakland Orbits
+Billie Holiday|7|Alameda Aligators
+Edna Lancaster|9|Emmeryville Energizers
