@@ -63,3 +63,16 @@ end
 get '/add/:x/:y' do
   "#{params[:x]} + #{params[:y]} = #{(params[:x].to_i + params[:y].to_i)}"
 end
+
+get '/students/campus/:campus' do
+  students = db.execute("SELECT name FROM students WHERE LOWER(campus) = ?", params[:campus].downcase)
+  students = students.inject('') do |list, student|
+    list += "<li>#{student["name"]}</li>"
+  end
+  <<-HEREDOC
+  <h1>Students from #{params[:campus]}</h1>
+  <ul>
+  #{students}
+  </ul>
+  HEREDOC
+end
