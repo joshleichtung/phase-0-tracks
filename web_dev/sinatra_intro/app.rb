@@ -52,7 +52,7 @@ We have no email, so send us mail correspondences at:<br>
   <i>Your Town, USA 12345</i>'
 end
 
-get '/great_job/:name' do
+get '/great_job' do
   if params[:name]
     "Good job, #{params[:name]}!"
   else
