@@ -25,3 +25,24 @@ post '/students' do
 end
 
 # add static resources
+
+# create HTTP route
+
+get '/songster' do
+  @student = db.execute("SELECT name FROM students").sample[0]
+  erb :songster
+end
+
+get '/songster/:name' do
+  @student = params[:name]
+  erb :songster
+end
+
+get '/ratpack/new' do
+  erb :ratpack_form
+end
+
+post '/ratpack' do
+  db.execute("INSERT INTO students (name, campus, age) VALUES (?,?,?)", [params['name'], params['campus'], params['age'].to_i])
+  redirect "/songster/#{params[:name]}"
+end
