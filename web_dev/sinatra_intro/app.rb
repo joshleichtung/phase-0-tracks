@@ -52,10 +52,27 @@ We have no email, so send us mail correspondences at:<br>
   <i>Your Town, USA 12345</i>'
 end
 
-get '/great_job/:name' do
+get '/great_job' do
   if params[:name]
     "Good job, #{params[:name]}!"
   else
     'Good job!'
   end
+end
+
+get '/add/:x/:y' do
+  "#{params[:x]} + #{params[:y]} = #{(params[:x].to_i + params[:y].to_i)}"
+end
+
+get '/students/campus/:campus' do
+  students = db.execute("SELECT name FROM students WHERE LOWER(campus) = ?", params[:campus].downcase)
+  students = students.inject('') do |list, student|
+    list += "<li>#{student["name"]}</li>"
+  end
+  <<-HEREDOC
+  <h1>Students from #{params[:campus]}</h1>
+  <ul>
+  #{students}
+  </ul>
+  HEREDOC
 end
