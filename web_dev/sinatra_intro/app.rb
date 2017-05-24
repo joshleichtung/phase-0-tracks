@@ -59,3 +59,7 @@ get '/great_job' do
     'Good job!'
   end
 end
+
+get '/add/:x/:y' do
+  "#{params[:x]} + #{params[:y]} = #{(params[:x].to_i + params[:y].to_i)}"
+end
