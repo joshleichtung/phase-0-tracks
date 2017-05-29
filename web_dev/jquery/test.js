@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $('#load_button').on('click', load_ajax_data);
+  $('#load_button').on('click', getJSON);
 })
 
 function load_ajax_data(event){
@@ -9,33 +9,15 @@ function load_ajax_data(event){
   $('#data').load('./data.json');
 }
 
-var getData = function(){
-  var data;
-  $.ajax({
-    url: './data.json',
-    dataType: 'json',
-    success: function(response){ console.log("success");
-      console.log(response);
-      data = response.name; },
-    error: function(req, status, err){
-      console.log("Ajax error:", status, err);
-
-    },
-  });
-  console.log("Data: " + data);
-  return "yo";
-}
-
-var getSomeData = function() {
-  var data;
-
-  $.ajax({
-    url: './data.json',
-    dataType: 'json',
-    success: function(resp) {
-      data = resp.people;
+var getJSON = function(){
+  $.getJSON('./data.json', function(json){
+    $('#ajax-loader').append('<div></div>')
+    var div = $('#ajax-loader :last-child');
+    for(prop in json){
+      if(json.hasOwnProperty(prop)){
+        div.append('<h3>' + prop + '</h3><div><p>This is what\'s in that property:<br>' + json[prop] + '</p>');
+      }
     }
+    div.accordion({collapsible: true, active: false});
   });
-
-  return data;
-}
+};
