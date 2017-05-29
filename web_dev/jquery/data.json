@@ -1,0 +1,8 @@
+{
+  "name": "Josh",
+  "array": ["one", "two", "three"],
+  "object": {
+    "dog": "Mascis",
+    "age": 3
+  }
+}
